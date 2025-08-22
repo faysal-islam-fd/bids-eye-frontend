@@ -12,6 +12,7 @@ import SocialLogin from "@/components/auth/SocialLogin";
 import authApiSlice from "@/redux/api/authApiSlice";
 import toast from "react-hot-toast";
 import { useParams, useSearchParams } from "next/navigation";
+
 export default function AuthPage() {
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
@@ -21,6 +22,7 @@ export default function AuthPage() {
   const { token } = useParams();
   const searchParams = useSearchParams();
   const email = searchParams.get("email");
+  
   const handleSendResetLink = () => {
     if (email && passwordConfirmation && password && token) {
       sendLink({
@@ -74,7 +76,8 @@ export default function AuthPage() {
         toast.success(data?.message);
       }
     }
-  }, [isSuccess, isError]);
+  }, [isSuccess, isError, error, data]);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-4">
       <motion.div
